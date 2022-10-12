@@ -28,16 +28,20 @@ public:
     bool operator<(BigDecimalInt n2){
         if (strBigDecimal.size() < n2.strBigDecimal.size()){
             return true;
-        }else if (strBigDecimal.size() > n2.strBigDecimal.size()){
-            return false;
-        }else if (strBigDecimal < n2.strBigDecimal){
+        }
+        else if (strBigDecimal.size()==n2.strBigDecimal.size() && strBigDecimal < n2.strBigDecimal){
             return true;
-        }else if (strBigDecimal > n2.strBigDecimal){
+        }
+        else if (strBigDecimal[0]==n2.strBigDecimal[0]=='-'){
+            if (strBigDecimal.length() > n2.strBigDecimal.length()){
+                return true;
+            }
+            else if (strBigDecimal > n2.strBigDecimal){
+                return true;
+            }
+        }
+        else {
             return false;
-        }else if (strBigDecimal[0]==n2.strBigDecimal[0]=='-' && strBigDecimal < n2.strBigDecimal){
-            return false;
-        }else if (strBigDecimal[0]==n2.strBigDecimal[0]=='-' && strBigDecimal > n2.strBigDecimal){
-            return true;
         }
     }
     void print_value(){
