@@ -40,6 +40,9 @@ public:
                 return true;
             }
         }
+        else if (strBigDecimal[0]=='-' && n2.strBigDecimal[0]=='+'||isdigit(n2.strBigDecimal[0])){
+            return true;
+        }
         else {
             return false;
         }
