@@ -26,23 +26,37 @@ public:
 //        return n3;
 //    }
     bool operator<(BigDecimalInt n2){
-        if (strBigInt.size() < n2.strBigInt.size()){
-            return true;
+        // +    +
+        if (strBigInt[0]=='+' && n2.strBigInt[0]=='+' || isdigit(strBigInt[0]) || isdigit(n2.strBigInt[0])){
+            if (strBigInt.size() < n2.strBigInt.size()){
+                return true;
+            }
+            else if (strBigInt.size()==n2.strBigInt.size()){
+                for (int i=0; i<strBigInt.size(); i++){
+                    if (strBigInt[i] < n2.strBigInt[i]){
+                        return true;
+                    }
+                }
+            }
         }
-        else if (strBigInt.size()==n2.strBigInt.size() && strBigInt < n2.strBigInt){
-            return true;
-        }
-        else if (strBigInt[0]==n2.strBigInt[0]=='-'){
+        //  -   -
+        else if (strBigInt[0]=='-' && n2.strBigInt[0]=='-'){
             if (strBigInt.length() > n2.strBigInt.length()){
                 return true;
             }
-            else if (strBigInt > n2.strBigInt){
-                return true;
+            else if (strBigInt.length()==n2.strBigInt.length()){
+                for (int i=1; i<strBigInt.size(); i++){
+                    if (strBigInt[i] < n2.strBigInt[i]){
+                        return true;
+                    }
+                }
             }
         }
+        //  -   +
         else if (strBigInt[0]=='-' && n2.strBigInt[0]=='+'||isdigit(n2.strBigInt[0])){
             return true;
         }
+        //  +   - and opposite conditions
         else {
             return false;
         }
