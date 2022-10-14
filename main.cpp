@@ -2,20 +2,20 @@
 using namespace std;
 
 class BigDecimalInt{
-    string strBigDecimal;
+    string strBigInt;
 public:
     BigDecimalInt(){
         cout << "There is no values." << endl;
-        strBigDecimal = "";
+        strBigInt = "";
     }
     BigDecimalInt(string x){
         int i = 0;
         if (x[i]=='+' && x[i+1]=='-' || x[i]=='+' && x[i+1]==' ' || x[i]=='-' && x[i+1]==' '){
             cout << "The value is unvalid." << endl;
-            strBigDecimal = "";
+            strBigInt = "";
         }else {
             cout << "The value is valid." << endl;
-            strBigDecimal = x;
+            strBigInt = x;
         }
     }
 //    BigDecimalInt operator-(BigDecimalInt n2){
@@ -26,21 +26,21 @@ public:
 //        return n3;
 //    }
     bool operator<(BigDecimalInt n2){
-        if (strBigDecimal.size() < n2.strBigDecimal.size()){
+        if (strBigInt.size() < n2.strBigInt.size()){
             return true;
         }
-        else if (strBigDecimal.size()==n2.strBigDecimal.size() && strBigDecimal < n2.strBigDecimal){
+        else if (strBigInt.size()==n2.strBigInt.size() && strBigInt < n2.strBigInt){
             return true;
         }
-        else if (strBigDecimal[0]==n2.strBigDecimal[0]=='-'){
-            if (strBigDecimal.length() > n2.strBigDecimal.length()){
+        else if (strBigInt[0]==n2.strBigInt[0]=='-'){
+            if (strBigInt.length() > n2.strBigInt.length()){
                 return true;
             }
-            else if (strBigDecimal > n2.strBigDecimal){
+            else if (strBigInt > n2.strBigInt){
                 return true;
             }
         }
-        else if (strBigDecimal[0]=='-' && n2.strBigDecimal[0]=='+'||isdigit(n2.strBigDecimal[0])){
+        else if (strBigInt[0]=='-' && n2.strBigInt[0]=='+'||isdigit(n2.strBigInt[0])){
             return true;
         }
         else {
