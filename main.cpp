@@ -18,13 +18,40 @@ public:
             strBigInt = x;
         }
     }
-//    BigDecimalInt operator-(BigDecimalInt n2){
-//        BigDecimalInt n3;
-//        for (int i = strBigDecimal.size(); i>0; i--){
-//            n3.strBigDecimal[i] = strBigDecimal[i]-n2.strBigDecimal[i]+'0';
-//        }
-//        return n3;
-//    }
+// Operator - 
+    BigDecimalInt operator-(BigDecimalInt n2){
+        BigDecimalInt n3;
+        //  +   +
+        if (strBigInt[0]=='+' && n2.strBigInt[0]=='+' || isdigit(strBigInt[0]) || isdigit(n2.strBigInt[0])){
+            if (strBigInt.size() > n2.strBigInt.size()){        // if the size of 2strings aren't equal=> we add 0 in the begging of the less string.
+                while (n2.strBigInt.size() != strBigInt.size()){
+                    n2.strBigInt.insert(0,"0");
+                }
+            }else {
+                while (strBigInt.size() != n2.strBigInt.size()){
+                    strBigInt.insert(0,"0");
+                }
+            }
+        }
+        // -    -
+        else if (strBigInt[0]=='-' && n2.strBigInt[0]=='-'){
+            if (strBigInt.size() > n2.strBigInt.size()){        // if the size of 2strings aren't equal=> we add 0 in the begging of the less string.
+                while (n2.strBigInt.size() != strBigInt.size()){
+                    n2.strBigInt.insert(1,"0");
+                }
+            }else {
+                while (strBigInt.size() != n2.strBigInt.size()){
+                    strBigInt.insert(1,"0");
+                }
+            }
+        }
+        for (int i=strBigInt.size()-1; i>=0; i--){
+            n3.strBigInt += char((strBigInt[i] - n2.strBigInt[i])+'0');
+        }reverse(n3.strBigInt.begin(), n3.strBigInt.end());
+        if (strBigInt[0]=='-' && n2.strBigInt[0]=='-'){n3.strBigInt[0]='-';}
+        return n3;
+    }
+    // Operator -
     bool operator<(BigDecimalInt n2){
         // +    +
         if (strBigInt[0]=='+' && n2.strBigInt[0]=='+' || isdigit(strBigInt[0]) || isdigit(n2.strBigInt[0])){
