@@ -51,10 +51,10 @@ public:
         if (strBigInt[0]=='-' && n2.strBigInt[0]=='-'){n3.strBigInt[0]='-';}
         return n3;
     }
-    // Operator -
+    // Operator <
     bool operator<(BigDecimalInt n2){
         // +    +
-        if (strBigInt[0]=='+' && n2.strBigInt[0]=='+' || isdigit(strBigInt[0]) || isdigit(n2.strBigInt[0])){
+        if ((strBigInt[0]=='+' || isdigit(strBigInt[0])) && (n2.strBigInt[0]=='+'  || isdigit(n2.strBigInt[0]))){
             if (strBigInt.size() < n2.strBigInt.size()){
                 return true;
             }
@@ -80,7 +80,7 @@ public:
             }
         }
         //  -   +
-        else if (strBigInt[0]=='-' && n2.strBigInt[0]=='+'||isdigit(n2.strBigInt[0])){
+        else if (strBigInt[0]=='-' && (n2.strBigInt[0]=='+'||isdigit(n2.strBigInt[0]))){
             return true;
         }
         //  +   - and opposite conditions
