@@ -4,20 +4,91 @@ using namespace std;
 class BigDecimalInt{
     string strBigInt;
 public:
-    BigDecimalInt(){
-        cout << "There is no values." << endl;
-        strBigInt = "";
+                // constructors
+  BigDecimalInt();             
+  BigDecimalInt (string decStr);
+  BigDecimalInt (int decInt);
+
+               /*** Operator Overloading ***/
+  BigDecimalInt operator+ (BigDecimalInt anotherDec);
+  BigDecimalInt operator- (BigDecimalInt anotherDec);  
+  bool operator< (BigDecimalInt anotherDec); 
+  bool operator==(BigDecimalInt anotherDec); 
+  BigDecimalInt operator= (BigDecimalInt anotherDec); 
+  
+  int size(); 
+  int sign(); 
+  friend ostream& operator << (ostream& out, BigDecimalInt& ob);
+
+};
+
+
+/*  __________ implementaion ________*/ 
+ BigDecimalInt :: BigDecimalInt(){
+  strBigInt = "" ;
+}
+
+BigDecimalInt :: BigDecimalInt (int decInt){
+    num = decInt ;  
+} 
+
+BigDecimalInt :: BigDecimalInt (string decStr)
+{ 
+    regex filter("(-?|\\+)[0-9]+");
+
+    if(regex_match(decStr , filter)){
+      strBigInt = decStr ;
+      if(strBigInt[0] == '+'){strBigInt.erase(strBigInt.begin());}
+    } 
+    else{
+      cout << "try valid num "  << endl ;
     }
-    BigDecimalInt(string x){
-        int i = 0;
-        if (x[i]=='+' && x[i+1]=='-' || x[i]=='+' && x[i+1]==' ' || x[i]=='-' && x[i+1]==' '){
-            cout << "The value is unvalid." << endl;
-            strBigInt = "";
-        }else {
-            cout << "The value is valid." << endl;
-            strBigInt = x;
-        }
-    }
+
+}
+
+// operator +
+BigDecimalInt BigDecimalInt ::  operator+ (BigDecimalInt anotherDec )
+{
+  BigDecimalInt temp ;
+  string str1 = strBigInt , res =  "" ;
+  string str2 = anotherDec.strBigInt ;
+  
+        // str2 should be larger than str1 
+  if(str1.length() > str2.length()){
+    swap(str1 , str2) ;
+  }
+  
+  int len1 = str1.size() , len2 = str2.size() ;
+  int diff = len2 - len1 ;
+  str1.insert(str1.begin(), diff , ' ' );
+
+  int carry = 0 , i = len2 - 1 ;
+  while (len1--)
+  {
+    int sum = (str2[i]-'0') + (str1[i]-'0') + carry ;
+      res.push_back(sum % 10 + '0') ;
+      carry = sum / 10 ;
+      i-- ;
+  }
+  while (i >= 0)
+  {
+    int sum = (str2[i]-'0') + carry ;
+      res.push_back(sum % 10 + '0') ;
+      carry = sum / 10 ;
+      i-- ;
+  }
+  
+  if(carry){
+    res.push_back(carry + '0');
+  }
+
+   reverse(res.begin(),res.end());
+   temp.strBigInt = res ;
+   return temp ; 
+   
+}
+
+
 // Operator - 
     BigDecimalInt operator-(BigDecimalInt n2){
         BigDecimalInt n3;
@@ -134,14 +205,32 @@ public:
     }
 };
 
+
+BigDecimalInt BigDecimalInt ::  operator= (BigDecimalInt anotherDec )
+{
+  BigDecimalInt temp ;
+  strBigInt = anotherDec.strBigInt ; 
+  return temp ;
+}
+
+ostream & operator <<(ostream & out , BigDecimalInt& ob)
+ {
+  out << ob.strBigInt << endl ;
+  return out ;
+ }
+
+
+
+
+
 int main()
 {
     //string num1("123456789012345678901234567890"), num2("113456789011345678901134567890"), num3("-200000000000000000000000000000"), num5="", num4="",temp="";
-    BigDecimalInt num("-100000000000000000000000000000");
+    BigDecimalInt num1("-100000000000000000000000000000");
     BigDecimalInt num2("-113456789011345678901134567890");
-//    BigDecimalInt num3 = num - num2;
+//    BigDecimalInt num3 = num1 - num2;
 //    num3.print_value();
-    if (num < num2){
+    if (num1 < num2){
         cout << "True";
     }else {cout << "False";}
     //236913578023691357802369135780
