@@ -89,18 +89,19 @@ BigDecimalInt BigDecimalInt ::  operator+ (BigDecimalInt anotherDec )
 }
 
 // Operator -
-    BigDecimalInt operator-(BigDecimalInt n2)
+    // Operator -
+    BigDecimalInt operator-(BigDecimalInt anotherDec)
     {
-        if (strBigInt < n2.strBigInt)
+        if (strBigInt < anotherDec.strBigInt)
         {
-            swap(strBigInt, n2.strBigInt);
+            swap(strBigInt, anotherDec.strBigInt);
         }
-        BigDecimalInt n3;
-        int carry = 0, diff = strBigInt.size() - n2.strBigInt.size();
+        BigDecimalInt result;
+        int carry = 0, diff = strBigInt.size() - anotherDec.strBigInt.size();
         // sub. the digits from right (H2H).
-        for (int i = n2.strBigInt.size() - 1; i >= 0; i--)
+        for (int i = anotherDec.strBigInt.size() - 1; i >= 0; i--)
         {
-            int step = ((strBigInt[i + diff] - '0') - (n2.strBigInt[i] - '0') - carry);
+            int step = ((strBigInt[i + diff] - '0') - (anotherDec.strBigInt[i] - '0') - carry);
             if (step < 0)
             { // There will be a carry
                 step += 10;
@@ -110,24 +111,24 @@ BigDecimalInt BigDecimalInt ::  operator+ (BigDecimalInt anotherDec )
             {
                 carry = 0;
             }
-            n3.strBigInt += (step + '0');
+            result.strBigInt += (step + '0');
         } // sub. the remining from bigger string (ALONE).
         for (int i = diff - 1; i >= 0; i--)
         {
             if (strBigInt[i] == '0' && carry != 0)
             {
-                n3.strBigInt += '9';
+                result.strBigInt += '9';
                 continue;
             }
             int step = ((strBigInt[i] - '0') - carry);
             if (i > 0 || step > 0)
             {
-                n3.strBigInt += step + '0';
+                result.strBigInt += step + '0';
             }
             carry = 0;
         }
-        reverse(n3.strBigInt.begin(), n3.strBigInt.end());
-        return n3;
+        reverse(result.strBigInt.begin(), result.strBigInt.end());
+        return result;
     }
 
     // Operator <
